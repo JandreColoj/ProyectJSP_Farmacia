@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"    >
+    <h:head>
+        <title>Login Contraseña</title>
+        <h:outputStylesheet library="css" name="style.css"/>
+    </h:head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <h:body class="fondo-dos">
+            
+        <div>
+            <p:panel id="basic" header="Ingreso al sistema" footer="Validar la Contraseña " class="contenedor">                
+                <p:panelGrid columns="1">
+                    <h:form class="center" >
+                    <p:growl id="growl" showDetail="true" sticky="true" />
+                        <p:outputLabel value="Ingresa tu Contraseña "/>
+                        <p:password value="#{LoginBean.password}" required="true" />
+                        <h:commandButton value="Ingresar" action="#{LoginBean.verificarPassword()}"/> 
+                    </h:form>       
+                </p:panelGrid>    
+            </p:panel>
+        </div>
+       
+    </h:body>
+</html>
+
