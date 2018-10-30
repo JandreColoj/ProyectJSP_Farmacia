@@ -27,11 +27,12 @@
             <artifactId>primefaces</artifactId>
             <version>6.2</version>
         </dependency>
+
         
-        <dependency>
-            <groupId>org.primefaces.themes</groupId>
-            <artifactId>all-themes</artifactId>
-            <version>1.0.8</version>
+         <dependency>
+            <groupId>com.oracle.jdbc</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>11.2.0.4</version>
         </dependency>
         
     </dependencies>
