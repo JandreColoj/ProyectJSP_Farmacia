@@ -1,0 +1,6 @@
+CAD\productoCAD.class
+DTO\usuario.class
+bean\LoginBean.class
+CAD\ConnectionDB.class
+CAD\usuarioCad.class
+DTO\producto.class
