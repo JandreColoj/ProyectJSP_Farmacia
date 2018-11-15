@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Productos</title>
+        <h:outputStylesheet library="css" name="style.css"/>
+    </h:head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <h:body class="fodo">
+        
+        <p:breadCrumb>
+            <p:menuitem value="Categories" url="#" />
+            <p:menuitem value="Salir" url="#" />
+        </p:breadCrumb>
+
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-2 fondo_menu" >                
+                <h:form>  
+                    <p:menu model="#{menuView.model}" />
+                </h:form>
+            </div>
+            
+            <div class="ui-g-12 ui-md-10 ui-g-nopad center">
+                <h:form id="form">
+                    
+                        <p:growl id="msg" showDetail="true" showSummary="true" sticky="false" autoUpdate="true" />
+                                         
+                    <div class="center">
+                        <h4>Listado de productos</h4>
+                        <!--p:commandButton value="Actualizar lista"  actionListener="#{ProductoBean.listar()}" update="table_producto" /-->
+                        <p:commandButton value="Nuevo" type="button" onclick="PF('dlg3').show();" />                        
+                    </div>
+                        
+                    <div style="width: 90%; text-align: center; margin:auto"> 
+                        
+                        <p:dataTable id="table_producto" paginator="true" rows="11" value="#{ProductoBean.lista}" var="pro" editable="true">
+                            <p:ajax event="rowEdit" listener="#{ProductoBean.actualizar}" update=":form:msg"/>
+                            <p:ajax event="rowEditCancel" listener="#{ProductoBean.cancelar}" update=":form:msg"/>
+                            
+                            <p:column headerText="CODIGO">
+                                <p:outputLabel value="#{pro.idProducto}" />
+                            </p:column>  
+                             <p:column headerText="NOMBRE">
+                                 <p:cellEditor>
+                                    <f:facet name="output">  
+                                        <h:outputText value="#{pro.nombre}">                                            
+                                        </h:outputText>
+                                    </f:facet>
+                                    <f:facet name="input">  
+                                        <p:inputText value="#{ProductoBean.nombreEdit}"/>
+                                    </f:facet>
+                                 </p:cellEditor>
+                            </p:column> 
+                            <p:column headerText="DESCRIPCION">
+                                <p:cellEditor>
+                                    <f:facet name="output">  
+                                        <h:outputText value="#{pro.descripcion}">                                            
+                                        </h:outputText>
+                                    </f:facet>
+                                    <f:facet name="input">  
+                                        <p:inputText value="#{ProductoBean.descripcionEdit}"/>
+                                    </f:facet>
+                                 </p:cellEditor>
+                            </p:column> 
+                            <p:column headerText="PRECIO">
+                                 <p:cellEditor>
+                                    <f:facet name="output">  
+                                        <h:outputText value="#{pro.costo}">                                            
+                                        </h:outputText>
+                                    </f:facet>
+                                    <f:facet name="input">  
+                                        <p:inputText value="#{ProductoBean.costoEdit}"/>
+                                    </f:facet>
+                                 </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="STOCK">
+                                 <p:cellEditor>
+                                    <f:facet name="output">  
+                                        <h:outputText value="#{pro.stock}">                                            
+                                        </h:outputText>
+                                    </f:facet>
+                                    <f:facet name="input">  
+                                        <p:inputText value="#{ProductoBean.stockEdit}"/>
+                                    </f:facet>
+                                 </p:cellEditor>
+                            </p:column> 
+                            <p:column>
+                                <p:rowEditor>
+                                </p:rowEditor>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton value="Eliminar"  actionListener="#{ProductoBean.eliminar(pro.idProducto)}" update="table_producto"/>
+                            </p:column>
+                        
+                        </p:dataTable>
+                    </div>
+                      
+                        
+                </h:form>      
+                
+                <p:dialog header="Nuevo producto" widgetVar="dlg3" showEffect="explode" hideEffect="explode" height="400" width="50%">
+
+                    <h:form class="center">
+                    
+                        
+                        <p:panelGrid columns="2"  >
+
+                            <h:outputLabel value="Nombre "/>
+                            <p:inputText value="#{ProductoBean.nombre}" required="true" />  
+
+                            <h:outputLabel value="Descripcion "/>
+                            <p:inputText value="#{ProductoBean.descripcion}" required="true" />
+
+                            <h:outputLabel value="Costo "/>
+                            <p:inputNumber value="#{ProductoBean.costo}" required="true" />
+
+                            <h:outputLabel value="Existencia"/>
+                            <p:inputText value="#{ProductoBean.stock}" required="true" />
+
+                            <p:outputLabel for="lazy" value="Categoria:" />
+                            <p:selectOneMenu id="lazy" value="#{ProductoBean.listaCat}" >
+                                <f:selectItem itemLabel="selecciona" itemValue="" />
+                                <f:selectItems value="#{ProductoBean.listaCat}"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid> 
+                    
+                    <br></br>
+                    <h:commandButton action="#{ProductoBean.insertar()}" id="btn_login" value="GUARDAR" class="btn_inicio" />
+                </h:form>    
+                
+                </p:dialog>
+                
+            </div>
+            <div class="footer">
+                <p> Farmacias N</p>
+                <p> Contacto: Jose Andre Coloj</p>
+                <p> Correo: jose.coloj@gmail.com</p>                    
+            </div>
+        </div>    
+       
+    </h:body>
+</html>
+

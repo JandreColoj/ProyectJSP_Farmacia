@@ -6,9 +6,6 @@
 package bean;
 
 import CAD.usuarioCad;
-import DTO.usuario;
-import java.io.IOException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Named;
@@ -17,9 +14,6 @@ import javax.enterprise.context.RequestScoped;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.management.Query;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 /**
  *

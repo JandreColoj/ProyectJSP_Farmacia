@@ -10,20 +10,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <h:body class="fondo">            
         <div> 
-            <p:panel id="basic" header="Ingreso al sistema" footer="Validar Usuario" class="contenedor">                
-                <p:panelGrid columns="1">
-                    <h:form class="center" >
-                    <p:growl id="growl" showDetail="true" sticky="true" />
-                        <p:outputLabel value="Usuario "/>
+            <p:panel id="basic" header="LOGIN" class="contenedor center">                
+                
+                <h:form class="center">
+                    
+                    <p:growl id="growl" showDetail="true" sticky="true" /> 
+                     
+                    <p:panelGrid columns="2"  >
+                        <h:outputLabel value="Usuario "/>
                         <p:inputText value="#{LoginBean.user}" required="true" />
-                        <hr></hr>
-                        <p:outputLabel value="Contraseña "/>
-                        <p:password value="#{LoginBean.password}" required="true" />
-                        <hr></hr>
-                                                      
-                        <h:commandButton value="Ingresar" action="#{LoginBean.verificarUser()}"/>
-                    </h:form>       
-                </p:panelGrid>    
+
+                        <h:outputLabel value="Contraseña "/>
+                        <p:password value="#{LoginBean.password}" required="true" />                       
+                    </p:panelGrid> 
+                    
+                    <br></br>
+                    <h:commandButton action="#{LoginBean.verificarUser()}" id="btn_login" value="INGRESAR" class="btn_inicio" />
+                </h:form>       
+                   
             </p:panel>
         </div>
        
