@@ -16,7 +16,7 @@ public class detalleFactura {
     private int cantidad;
     private float costo;
     private String descripcion;
-
+    
     public String getIdProd() {
         return idProd;
     }

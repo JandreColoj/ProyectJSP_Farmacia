@@ -36,17 +36,18 @@ public class ProductoBean {
     private int stock;
     private String idcategoriaProducto;
     
-    private String nombreEdit;
-    private String descripcionEdit;
-    private double costoEdit;
+    private static String nombreEdit;
+    private static String descripcionEdit;
+    private static double costoEdit;
+    private static int stockEdit;
     
-    private int id;
+    private static String id;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -57,7 +58,6 @@ public class ProductoBean {
     public void setStockEdit(int stockEdit) {
         this.stockEdit = stockEdit;
     }
-    private int stockEdit;
 
     public String getDescripcionEdit() {
         return descripcionEdit;
@@ -185,10 +185,11 @@ public class ProductoBean {
 
         System.out.println(this.idcategoriaProducto);
         
-        this.nombre ="";
-        this.descripcion="";
-        this.costo = 0;
-        this.stock = 0;
+        this.setNombre("");
+        this.setDescripcion("");
+        this.setCosto(0);
+        this.setStock(0);
+        
         try {
             response = prod.insertarProducto(producto);
         }catch (Exception ex) {
@@ -197,17 +198,16 @@ public class ProductoBean {
         this.listar();
     }
     
-    public void actualizar(RowEditEvent event){
-        producto d = (producto) event.getObject();
+    public void actualizar(){
         
         productoCAD prod = new productoCAD();
         producto producto = new producto();
         
-        producto.setNombre(this.nombreEdit);
-        producto.setDescripcion(this.descripcionEdit);
-        producto.setCosto(this.costoEdit);
-        producto.setIdProducto(d.getIdProducto());
-        producto.setStock(this.stockEdit);
+        producto.setNombre(this.getNombreEdit());
+        producto.setDescripcion(this.getDescripcionEdit());
+        producto.setCosto(this.getCostoEdit());
+        producto.setIdProducto(this.getId());
+        producto.setStock(this.getStockEdit());
         
         
         try {
@@ -227,12 +227,12 @@ public class ProductoBean {
         context.addMessage(null, new FacesMessage("Cancelado", "Cancelado"));
     }
     
-    public void eliminar(int id){
+    public void eliminar(){
         
         productoCAD prod = new productoCAD();
         
         try {
-            prod.eliminarProducto(id);
+            prod.eliminarProducto(this.getId());
             
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage("Eliminado", "eliminado correctamente"));
@@ -240,5 +240,21 @@ public class ProductoBean {
         }
         
          this.listar();
+    }
+    
+    public void btnEditar(producto pro){
+        
+         this.setNombreEdit(pro.getNombre());
+         this.setDescripcionEdit(pro.getDescripcion());
+         this.setCostoEdit(pro.getCosto());
+         this.setStockEdit(pro.getStock());
+         this.setId(pro.getIdProducto());
+         
+         System.out.print(this.getNombre());
+        
+    }
+    
+    public void btnEliminar(String idProducto){
+        this.setId(idProducto);
     }
 }

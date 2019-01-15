@@ -10,11 +10,6 @@
     </h:head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <h:body class="fodo">
-        
-        <p:breadCrumb>
-            <p:menuitem value="Categories" url="#" />
-            <p:menuitem value="Salir" url="#" />
-        </p:breadCrumb>
 
         <div class="ui-g">
             <div class="ui-g-12 ui-md-2 fondo_menu" >                
@@ -26,73 +21,40 @@
             <div class="ui-g-12 ui-md-10 ui-g-nopad center">
                 <h:form id="form">
                     
-                        <p:growl id="msg" showDetail="true" showSummary="true" sticky="false" autoUpdate="true" />
-                                         
-                    <div class="center">
-                        <h4>Listado de productos</h4>
-                        <!--p:commandButton value="Actualizar lista"  actionListener="#{ProductoBean.listar()}" update="table_producto" /-->
-                        <p:commandButton value="Nuevo" type="button" onclick="PF('dlg3').show();" />                        
-                    </div>
+                        <!--p:growl id="msg" showDetail="true" showSummary="true" sticky="false" autoUpdate="true" /-->
                         
-                    <div style="width: 90%; text-align: center; margin:auto"> 
+                    <div style="width: 90%; text-align: center; margin:aut; padding: 40px 0px 0px 20px"> 
+                        
+                        <div class="center">
+                            <!--h4>Listado de productos</h4-->
+                            <!--p:commandButton value="Actualizar lista"  actionListener="#{ProductoBean.listar()}" update="table_producto" /-->
+                            <p:commandButton value="CREAR PRODUCTO" type="button" onclick="PF('dlg3').show();" style="width:300px; margin: 1px 1px 10px 0px"/>                        
+                        </div>
                         
                         <p:dataTable id="table_producto" paginator="true" rows="11" value="#{ProductoBean.lista}" var="pro" editable="true">
-                            <p:ajax event="rowEdit" listener="#{ProductoBean.actualizar}" update=":form:msg"/>
-                            <p:ajax event="rowEditCancel" listener="#{ProductoBean.cancelar}" update=":form:msg"/>
                             
                             <p:column headerText="CODIGO">
                                 <p:outputLabel value="#{pro.idProducto}" />
                             </p:column>  
-                             <p:column headerText="NOMBRE">
-                                 <p:cellEditor>
-                                    <f:facet name="output">  
-                                        <h:outputText value="#{pro.nombre}">                                            
-                                        </h:outputText>
-                                    </f:facet>
-                                    <f:facet name="input">  
-                                        <p:inputText value="#{ProductoBean.nombreEdit}"/>
-                                    </f:facet>
-                                 </p:cellEditor>
+                            <p:column headerText="NOMBRE">
+                                <p:outputLabel value="#{pro.nombre}"/>
                             </p:column> 
                             <p:column headerText="DESCRIPCION">
-                                <p:cellEditor>
-                                    <f:facet name="output">  
-                                        <h:outputText value="#{pro.descripcion}">                                            
-                                        </h:outputText>
-                                    </f:facet>
-                                    <f:facet name="input">  
-                                        <p:inputText value="#{ProductoBean.descripcionEdit}"/>
-                                    </f:facet>
-                                 </p:cellEditor>
+                                <p:outputLabel value="#{pro.descripcion}"/>
                             </p:column> 
                             <p:column headerText="PRECIO">
-                                 <p:cellEditor>
-                                    <f:facet name="output">  
-                                        <h:outputText value="#{pro.costo}">                                            
-                                        </h:outputText>
-                                    </f:facet>
-                                    <f:facet name="input">  
-                                        <p:inputText value="#{ProductoBean.costoEdit}"/>
-                                    </f:facet>
-                                 </p:cellEditor>
+                                <p:outputLabel value="#{pro.costo}"/>
                             </p:column>
                             <p:column headerText="STOCK">
-                                 <p:cellEditor>
-                                    <f:facet name="output">  
-                                        <h:outputText value="#{pro.stock}">                                            
-                                        </h:outputText>
-                                    </f:facet>
-                                    <f:facet name="input">  
-                                        <p:inputText value="#{ProductoBean.stockEdit}"/>
-                                    </f:facet>
-                                 </p:cellEditor>
+                                <p:outputLabel value="#{pro.stock}"/>
                             </p:column> 
                             <p:column>
-                                <p:rowEditor>
-                                </p:rowEditor>
+                                <p:commandLink value="Editar" oncomplete="PF('dlg4').show();" actionListener="#{ProductoBean.btnEditar(pro)}" update="modalEdit">
+                                </p:commandLink>
                             </p:column>
                             <p:column>
-                                <p:commandButton value="Eliminar"  actionListener="#{ProductoBean.eliminar(pro.idProducto)}" update="table_producto"/>
+                                <p:commandLink value="Eliminar" oncomplete="PF('dlg5').show();" actionListener="#{ProductoBean.btnEliminar(pro.idProducto)}" update="table_producto">
+                                </p:commandLink>
                             </p:column>
                         
                         </p:dataTable>
@@ -101,7 +63,7 @@
                         
                 </h:form>      
                 
-                <p:dialog header="Nuevo producto" widgetVar="dlg3" showEffect="explode" hideEffect="explode" height="400" width="50%">
+                <p:dialog header="Nuevo producto" widgetVar="dlg3" showEffect="explode" hideEffect="explode" height="350" width="50%">
 
                     <h:form class="center">
                     
@@ -133,11 +95,47 @@
                 
                 </p:dialog>
                 
+                
+                <p:dialog header="Editar producto" widgetVar="dlg4" showEffect="explode" hideEffect="explode" height="300" width="50%" id="modalEdit">
+
+                    <h:form class="center">
+                     
+                        <p:panelGrid columns="2"  >
+                            
+                            <h:outputLabel value="NOMBRE "/>
+                            <p:inputText value="#{ProductoBean.nombreEdit}" required="true" />  
+
+                            <h:outputLabel value="DESCRIPCION "/>
+                            <p:inputText value="#{ProductoBean.descripcionEdit}" required="true" />
+
+                            <h:outputLabel value="PRECIO"/>
+                            <p:inputText value="#{ProductoBean.costoEdit}" required="true" />
+
+                            <h:outputLabel value="STOK"/>
+                            <p:inputText value="#{ProductoBean.stockEdit}" required="true" />
+                            
+                        </p:panelGrid> 
+                    
+                        <br></br>
+                        <h:commandButton action="#{ProductoBean.actualizar()}"  value="GUARDAR" class="btn_inicio" />
+                    </h:form>    
+                
+                </p:dialog>
+              
+                <p:dialog header="Eliminar producto" widgetVar="dlg5" showEffect="explode" hideEffect="explode" height="130" width="250" id="modalEliminar">
+
+                    <h:form class="center">                     
+                        <p:panelGrid columns="2"  >                            
+                            <h:outputLabel value="Seguro que quieres eliminar el producto? "/>
+                        </p:panelGrid> 
+                        <h:commandButton action="#{ProductoBean.eliminar()}"  value="Aceptar" class="btn_inicio" />
+                    </h:form>    
+                
+                </p:dialog>
+                
             </div>
             <div class="footer">
-                <p> Farmacias N</p>
-                <p> Contacto: Jose Andre Coloj</p>
-                <p> Correo: jose.coloj@gmail.com</p>                    
+                <p> © 2019 Copyright: jose.coloj@gmail.com</p>                      
             </div>
         </div>    
        

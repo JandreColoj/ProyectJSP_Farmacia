@@ -37,7 +37,7 @@ public class clienteCAD extends ConnectionDB {
             this.rs = new ArrayList<cliente>();
             
             while(resultado.next()){
-               // System.out.println("id: "+resultado.getString(1)+ " nombre " + resultado.getString(2));
+                System.out.println("id: "+resultado.getString(1)+ " nombre " + resultado.getString(2));
                 cliente cli = new cliente();
                 cli.setIdCliente(resultado.getInt(1));
                 cli.setNombre(resultado.getString(2));
@@ -101,7 +101,7 @@ public class clienteCAD extends ConnectionDB {
             String sql = "UPDATE CLIENTE" +
                          " SET \"nombre\" = ?, \"apellidos\" = ?, \"telefono\" = ?, \"direccion\" = ?" +
                          " WHERE \"idCliente\" = "+cli.getIdCliente();
-            System.out.println(sql);
+            System.out.println("NOMBRE PARA ACTUALIZAR "+cli.getNombre()+ " ID "+ cli.getIdCliente());
             
             PreparedStatement sentencia = miConexion.prepareStatement(sql);
             sentencia.setString(1, cli.getNombre());

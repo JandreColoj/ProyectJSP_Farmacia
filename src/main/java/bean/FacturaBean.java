@@ -88,22 +88,52 @@ public class FacturaBean {
      
      public void agregarProducto(String id, String nombre, String descrip, float costo){
          
-         detalleFactura d = new detalleFactura();
-         
-         d.setIdProd(id);
-         d.setNombre(nombre);
-         d.setDescripcion(descrip);
-         d.setCosto(costo);
-         
-         this.detalle.add(d);
-         this.totalFactura();
+        if (this.detalle.size() == 0) {     
+            detalleFactura d = new detalleFactura();
+            d.setIdProd(id);
+            d.setNombre(nombre);
+            d.setDescripcion(descrip);
+            d.setCosto(costo);
+            d.setCantidad(1);
+
+            this.detalle.add(d);
+        }else{
+            
+            boolean existe = false;
+            
+            for(int x=0;x<this.detalle.size();x++) {
+                                      
+                detalleFactura det = this.detalle.get(x);
+
+                
+                if (det.getIdProd().equals(id)) {                   
+                    det.setCantidad(det.getCantidad()+1);
+                    existe = true;
+                }                                          
+             
+            }
+            
+            if (!existe) {
+                detalleFactura d = new detalleFactura();
+                System.out.println("voy a crear un producto");
+                d.setIdProd(id);
+                d.setNombre(nombre);
+                d.setDescripcion(descrip);
+                d.setCosto(costo);
+                d.setCantidad(1);
+                this.detalle.add(d); 
+            }
+                  
+        }
+        
+        this.totalFactura();
          
      }
      
      public void totalFactura(){
-     
+         this.setGranTotal(0);
          for (detalleFactura factura : this.detalle) {
-            this.setGranTotal(this.granTotal+factura.getCosto());
+            this.setGranTotal(this.getGranTotal()+(factura.getCosto()*factura.getCantidad()));
          }
      }
      
@@ -134,11 +164,29 @@ public class FacturaBean {
         facturacionCAD fac = new facturacionCAD();
         
         try {
-            this.numerofactura = fac.noFactura();
+            this.numerofactura = fac.noFactura()+1;
     
             
         }catch (Exception ex) {
         }
+        
+    }
+    
+    public void eliminarProd(String id){
+        
+        int contador = 0;
+        int indice  = 0;
+        for (detalleFactura det : this.detalle) {
+           
+            if (det.getIdProd()==id) {
+                indice = contador;
+            }     
+            
+             contador++;
+        }
+        
+        this.detalle.remove(indice);
+        this.totalFactura();
         
     }
     

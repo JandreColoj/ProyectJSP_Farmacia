@@ -2,6 +2,7 @@
 package bean;
 
 import CAD.ventaCAD;
+import DTO.detalleFactura;
 import DTO.ventas;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,15 @@ public class ventasBean {
     
     //private static List<producto> lista = new ArrayList();
     private static List<ventas> lista ;
+    private static List<detalleFactura> detalle ;
+
+    public List<detalleFactura> getDetalle() {
+        return detalle;
+    }
+
+    public void setDetalle(List<detalleFactura> detalle) {
+        ventasBean.detalle = detalle;
+    }
 
     public  List<ventas> getLista() {
         return lista;
@@ -48,6 +58,19 @@ public class ventasBean {
 
         }
       
+    }
+    
+    public void detalleFactura(int factura){
+    
+        ventaCAD venta = new ventaCAD();
+
+        try {
+            this.detalle = venta.Detalle(factura); 
+            
+        } catch (Exception ex) {
+
+        }
+    
     }
 
     

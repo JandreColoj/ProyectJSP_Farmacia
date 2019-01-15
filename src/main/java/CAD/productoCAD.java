@@ -5,6 +5,7 @@
  */
 package CAD;
 
+import DTO.cliente;
 import DTO.producto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,14 +30,17 @@ public class productoCAD extends ConnectionDB {
             Connection miConexion = this.conectar();
             
             String sql = "SELECT * FROM ARTICULO WHERE ESTADO=1";
-            
+            System.out.println(sql);
+                    
             Statement sentencia = miConexion.createStatement();
             ResultSet resultado = sentencia.executeQuery(sql);
-            
+           
             this.rs = new ArrayList<producto>();
-            
+
+             System.out.println(resultado.next());
+             
             while(resultado.next()){
-               // System.out.println("id: "+resultado.getString(1)+ " nombre " + resultado.getString(2));
+               System.out.println("id: "+resultado.getString(1)+ " nombre " + resultado.getString(2));
                 producto prod = new producto();
                 prod.setIdProducto(resultado.getString(1));
                 prod.setNombre(resultado.getString(2));
@@ -49,7 +53,9 @@ public class productoCAD extends ConnectionDB {
             }
             
         } catch (Exception sqle) {
+            
             Throwable t = sqle.getCause();
+            System.out.println(sqle.getMessage());
         
         }finally{
             this.cerrar();
@@ -114,7 +120,7 @@ public class productoCAD extends ConnectionDB {
         return 0;
     }
     
-    public int eliminarProducto(int prod)throws  Exception{      
+    public int eliminarProducto(String prod)throws  Exception{      
         
         try {
             

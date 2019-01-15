@@ -5,96 +5,58 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Productos</title>
+        <title>Clientes</title>
         <h:outputStylesheet library="css" name="style.css"/>
     </h:head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <h:body class="fodo">
         
-        <p:breadCrumb>
-            <p:menuitem value="Categories" url="#" />
-            <p:menuitem value="Salir" url="#" />
-        </p:breadCrumb>
-
         <div class="ui-g">
             <div class="ui-g-12 ui-md-2 fondo_menu" >                
                 <h:form>  
+                     <!--p:growl id="growl" showDetail="true" sticky="true" /-->
                     <p:menu model="#{menuView.model}" />
                 </h:form>
             </div>
             
             <div class="ui-g-12 ui-md-10 ui-g-nopad center">
-                <h:form id="form">
+                <h:form id="form" style="padding-top: 50px;">
                                          
-                    <div class="center">
-                        <p:growl id="msg"/>
-                        <h4>Listado de Clientes</h4>
+                    <div class="">                       
+                        <!--h4>Listado de Clientes</h4-->
                         <!--p:commandButton value="Actualizar lista"  actionListener="#{ProductoBean.listar()}" update="table_producto" /-->
-                        <p:commandButton value="Nuevo" type="button" onclick="PF('dlg3').show();" />                        
+                        <p:commandButton value="CREAR CLIENTE" type="button" onclick="PF('dlg3').show();" style="width:300px; margin: 1px 1px 10px 0px"/>                        
                     </div>
                         
                     <div style="width: 90%; text-align: center; margin:auto"> 
                         
                         <p:dataTable id="table_cliente" paginator="true" rows="7" value="#{ClienteBean.lista}" var="cli" editable="true">
-                            <p:ajax event="rowEdit" listener="#{ClienteBean.actualizar}" update=":form:msg"/>
-                            <p:ajax event="rowEditCancel" listener="#{ClienteBean.cancelar}" update=":form:msg"/>
                             
                             <p:column headerText="CODIGO">
                                 <p:outputLabel value="#{cli.idCliente}" />
                             </p:column>  
                              <p:column headerText="NOMBRE">
-                                 <p:cellEditor>
-                                    <f:facet name="output">  
-                                        <h:outputText value="#{cli.nombre}">                                            
-                                        </h:outputText>
-                                    </f:facet>
-                                    <f:facet name="input">  
-                                        <p:inputText value="#{ClienteBean.nombreEdit}"/>
-                                    </f:facet>
-                                 </p:cellEditor>
+                                <p:outputLabel value="#{cli.nombre}" />
                             </p:column> 
                             <p:column headerText="APELLIDOS">
-                                <p:cellEditor>
-                                    <f:facet name="output">  
-                                        <h:outputText value="#{cli.apellidos}">                                            
-                                        </h:outputText>
-                                    </f:facet>
-                                    <f:facet name="input">  
-                                        <p:inputText value="#{ClienteBean.apellidoEdit}"/>
-                                    </f:facet>
-                                 </p:cellEditor>
+                                 <p:outputLabel value="#{cli.apellidos}" />
                             </p:column> 
                             <p:column headerText="TELEFONO">
-                                 <p:cellEditor>
-                                    <f:facet name="output">  
-                                        <h:outputText value="#{cli.telefono}">                                            
-                                        </h:outputText>
-                                    </f:facet>
-                                    <f:facet name="input">  
-                                        <p:inputText value="#{ClienteBean.telefonoEdit}"/>
-                                    </f:facet>
-                                 </p:cellEditor>
+                                <p:outputLabel value="#{cli.telefono}" />
                             </p:column>
                             <p:column headerText="DIRECCION">
-                                 <p:cellEditor>
-                                    <f:facet name="output">  
-                                        <h:outputText value="#{cli.direccion}">                                            
-                                        </h:outputText>
-                                    </f:facet>
-                                    <f:facet name="input">  
-                                        <p:inputText value="#{ClienteBean.direccionEdit}"/>
-                                    </f:facet>
-                                 </p:cellEditor>
+                                <p:outputLabel value="#{cli.direccion}" />
                             </p:column> 
                             <p:column headerText="NIT">
                                 <p:outputLabel value="#{cli.nit}" />
                             </p:column> 
-                            <p:column>
-                                <p:rowEditor>
-                                </p:rowEditor>
+                            <p:column> 
+                                <p:commandLink value="Editar" oncomplete="PF('dlg4').show();" actionListener="#{ClienteBean.btnEditar(cli)}" update="modalEdit">
+                                </p:commandLink>
                             </p:column>
                             <p:column>
-                                <p:commandButton value="Eliminar"  actionListener="#{ClienteBean.eliminar(cli.idCliente)}" update="table_cliente"/>
+                                <p:commandLink value="Eliminar" oncomplete="PF('dlg5').show();"  actionListener="#{ClienteBean.btnEliminar(cli.idCliente)}" update="table_cliente">
+                                </p:commandLink>
                             </p:column>
                         
                         </p:dataTable>
@@ -104,10 +66,10 @@
                         
                 </h:form>      
                 
-                <p:dialog header="Nuevo cliente" widgetVar="dlg3" showEffect="explode" hideEffect="explode" height="400" width="50%">
+                <p:dialog header="Nuevo cliente" widgetVar="dlg3" showEffect="explode" hideEffect="explode" height="350" width="50%">
 
-                    <h:form class="center">
-                     
+                    <h:form class="center">                     
+                        
                         <p:panelGrid columns="2"  >
 
                             <h:outputLabel value="NOMBRE "/>
@@ -132,11 +94,49 @@
                 
                 </p:dialog>
                 
+                <p:dialog header="Editar cliente" widgetVar="dlg4" showEffect="explode" hideEffect="explode" height="350" width="50%" id="modalEdit">
+
+                    <h:form class="center">
+                     
+                        <p:panelGrid columns="2"  >
+                            
+                            <h:outputLabel value="NOMBRE "/>
+                            <p:inputText value="#{ClienteBean.nombreEdit}" required="true" />  
+
+                            <h:outputLabel value="APELLIDOS "/>
+                            <p:inputText value="#{ClienteBean.apellidoEdit}" required="true" />
+
+                            <h:outputLabel value="TELEFONO"/>
+                            <p:inputText value="#{ClienteBean.telefonoEdit}" required="true" />
+
+                            <h:outputLabel value="DIRECCION"/>
+                            <p:inputText value="#{ClienteBean.direccionEdit}" required="true" />
+
+                           <h:outputLabel value="NIT"/>
+                           <p:inputText value="#{ClienteBean.nitEdit}" required="true" />
+                        </p:panelGrid> 
+                    
+                        <br></br>
+                        <h:commandButton action="#{ClienteBean.actualizar()}"  value="GUARDAR" class="btn_inicio" />
+                    </h:form>    
+                
+                </p:dialog>
+                
+                 <p:dialog header="Eliminar cliente" widgetVar="dlg5" showEffect="explode" hideEffect="explode" height="130" width="250" id="modalEliminar">
+
+                    <h:form class="center">                     
+                        <p:panelGrid columns="2"  >                            
+                            <h:outputLabel value="Seguo que quieres eliminar el cliente? "/>
+                        </p:panelGrid> 
+                        <h:commandButton action="#{ClienteBean.eliminar()}"  value="Aceptar" class="btn_inicio" />
+                    </h:form>    
+                
+                </p:dialog>
+                
             </div>
             <div class="footer">
-                <p> Farmacias N</p>
-                <p> Contacto: Jose Andre Coloj</p>
-                <p> Correo: jose.coloj@gmail.com</p>                    
+                <p> © 2019 Copyright: jose.coloj@gmail.com</p>     
+                
             </div>
         </div>    
        

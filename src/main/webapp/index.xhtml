@@ -10,20 +10,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <h:body class="fondo">            
         <div> 
-            <p:panel id="basic" header="LOGIN" class="contenedor center">                
+            <p:panel id="basic" header="INICIAR SESION" class="contenedor center ui-panel-login">                
                 
-                <h:form class="center">
+                <h:form class="center-login">
                     
-                    <p:growl id="growl" showDetail="true" sticky="true" /> 
-                     
-                    <p:panelGrid columns="2"  >
-                        <h:outputLabel value="Usuario "/>
-                        <p:inputText value="#{LoginBean.user}" required="true" />
+                    <p:growl id="growl" showDetail="true" sticky="true" />                      
+                    
+                    <div class="ui-g font_login">
+                        <div class="ui-g-6">
+                            <h:outputLabel value="USUARIO:"/>
+                        </div>
+                        <div class="ui-g-6">
+                            <p:inputText value="#{LoginBean.user}" required="true" />
+                        </div>
+                        
+                        <div class="ui-g-6">
+                             <h:outputLabel value="CONTRASEÑA:"/>
+                        </div>
+                        <div class="ui-g-6">
+                             <p:password value="#{LoginBean.password}" required="true" /> 
+                        </div>
+                        
+                    </div>
 
-                        <h:outputLabel value="Contraseña "/>
-                        <p:password value="#{LoginBean.password}" required="true" />                       
-                    </p:panelGrid> 
-                    
                     <br></br>
                     <h:commandButton action="#{LoginBean.verificarUser()}" id="btn_login" value="INGRESAR" class="btn_inicio" />
                 </h:form>       

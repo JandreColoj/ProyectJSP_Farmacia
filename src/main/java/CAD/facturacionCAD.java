@@ -29,8 +29,8 @@ public class facturacionCAD extends ConnectionDB{
         try {
            
              
-            String sql ="INSERT INTO FACTURA (\"CODFACTURA\", \"NUMFACTURA\", \"CODCLIENTE\",\"TOTALVENTA\")"
-                    + "  values (INDEX_FACTURA.nextval,INDEX_FACTURA.nextval,'"+cli.getIdCliente()+"','"+total+"')";
+            String sql ="INSERT INTO FACTURA (\"CODFACTURA\", \"NUMFACTURA\", \"CODCLIENTE\",\"TOTALVENTA\",\"ESTADO\")"
+                    + "  values (INDEX_FACTURA.nextval,INDEX_FACTURA.nextval,'"+cli.getIdCliente()+"','"+total+"',1)";
             
             Statement ps = this.getConexion().createStatement();
             
@@ -40,9 +40,10 @@ public class facturacionCAD extends ConnectionDB{
             for (detalleFactura det : detalle) {
                 
                  sql ="INSERT INTO DETALLEFACTURA (\"CODDETALLE\", \"CODFACTURA\", \"CODPRODUCTO\",\"NOMPRODUCTO\",\"CANTIDAD\",\"PRECIO\",\"TOTAL\")"
-                    + "  values (INDEX_DETALLE.nextval,'"+fac+"','"+det.getIdProd()+"','"+det.getNombre()+"', 1,'"+det.getCosto()+"','"+det.getCosto()+"')";
+                    + "  values (INDEX_DETALLE.nextval,'"+fac+"','"+det.getIdProd()+"','"+det.getNombre()+"',"+det.getCantidad()+",'"+det.getCosto()+"','"+det.getCosto()+"')";
             
-                 System.err.println(sql);
+                 System.out.println(sql);
+                 System.out.println(det.getNombre());
                  ps = this.getConexion().createStatement();
 
                  resultado = ps.executeUpdate(sql);

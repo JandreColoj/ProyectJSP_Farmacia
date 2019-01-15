@@ -7,9 +7,9 @@ body{
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 385px;
+    width: 419px;
     margin-left: -251px;
-    height: 220px;
+    height: 249px;
     margin-top: -150px;
     border: 1px solid #808080;
     padding: 5px;
@@ -48,7 +48,7 @@ body{
 
 
 .fondo {   
-    background-image: url("image/fondo.jpg");
+    background-image: url("image/fondo.png");
    -webkit-background-size: cover;
 -moz-background-size: cover;
 -o-background-size: cover;
@@ -75,7 +75,18 @@ background-size: cover;
     font-family: sans-serif;
     white: 100%;
     text-align: center;
-    padding-bottom: 10px;
+    padding-bottom: 1px;
+}
+
+.center-login{
+    font-family: sans-serif;
+    white: 100%;
+    text-align: center;
+    background: rgba(0,0,0,0.7);
+    padding-bottom: 33px;
+    padding-top: 33px;
+    color: #cacaca;
+    border: solid 0.2px;
 }
 
 .content-form{
@@ -92,44 +103,57 @@ background-size: cover;
 }
 
 .fondo_menu{
-    background: -webkit-radial-gradient(50% 75%,circle,#676767,#343434);
+        background: -webkit-radial-gradient(50% 100%,circle,#121d29,#000000);
     
 }
 
 
 .ui-panelgrid .ui-panelgrid-cell {
     width: 100% !important; 
-    padding: 16px 20px !important;
+    padding: 10px 10px !important;
     border-style: none none !important;
 }
 
 .ui-menu .ui-menuitem-link {
-    padding: 10px !important;
-    font-size: 15px !important;
-    border-bottom: solid 1px #955252 !important;
+    padding: 20px 5px 20px 5px !important;
+    font-size: 16px !important;
+    border: solid 1px #3a753b !important;
+    color: #9ddcae;
 }
+
+.ui-menuitem-link a:hover {
+ color : #000000 !important;
+ background: rgb(2,0,0) !important;
+}
+
 .btn_inicio{
     padding: 0.5em;
     border-radius: 0.5em;
-    width: 50%;
-    background: fixed;
-    color: #efd4d4;
+    width: 80%;
+    background: aliceblue;
+    color: #313133;
     font-weight: bolder;
     font-size: 21px;
 }
 
 .footer{
-    background: #1C2833;
+    font-family: arial;
+    font-family: arial;
+    padding-right: 46px;
+    padding-left: 15px;
+    background: #0f1821;
     width: 100%;
-    height: 73px;
+    height: 59px;
     margin-top: 5px;
-    color: #cacaca;
+    color: #509c64;
     align-content: center;
     text-align: center;
-    font-family: monospace;
-    letter-spacing: 1px;
-    padding-top: 3px;
-    line-height: 5px;  
+    font-family: sans-serif;
+    font-weight: lighter;
+    font-size: 13px;
+    /* letter-spacing: 1px; */
+    padding-top: 19px;
+    line-height: 5px;
 }
 
 h1{
@@ -137,3 +161,30 @@ h1{
     letter-spacing: 1px;
     
 }
+
+
+.ui-panel-login{
+    padding: 30px 10px 34px 10px !important;
+    background: rgba(2,2,2,0.8) !important;
+}
+
+.ui-panel .ui-panel-titlebar{
+    border: none !important;
+    background: space !important;
+    padding: .5em 1em .3em !important;
+    color: #cacaca !important;
+    font-weight: lighter !important;
+    padding-bottom: 30px !important;
+}
+
+.ui-menu .ui-menu-list .ui-widget-header{
+    color: #fff;
+    background: transparent;
+    clear: both;
+    float: left;
+    width: 98%;
+    margin: 1px 0;
+    text-align: center !important;
+    border: none;
+}
+

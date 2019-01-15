@@ -10,6 +10,10 @@
             <from-outcome>homeGo</from-outcome>
             <to-view-id>/home.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>facturacionGo</from-outcome>
+            <to-view-id>/facturacion.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     
 

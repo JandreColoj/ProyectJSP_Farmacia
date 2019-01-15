@@ -16,6 +16,7 @@ DTO\cliente.class
 DTO\ventas.class
 CAD\categoriaCAD.class
 CAD\ventaCAD.class
+OTHER\ChartView$1.class
 CAD\ConnectionDB.class
 bean\ClienteBean.class
 CAD\facturacionCAD.class

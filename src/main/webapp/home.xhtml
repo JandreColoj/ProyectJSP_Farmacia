@@ -11,10 +11,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <h:body class="fondo-dos">
         
-        <p:breadCrumb>
+        <!--p:breadCrumb>
             <p:menuitem value="Categories" url="#" />
             <p:menuitem value="Salir" url="#" />
-        </p:breadCrumb>
+        </p:breadCrumb-->
 
         <div class="ui-g">
             <div class="ui-g-12 ui-md-2 fondo_menu">                
@@ -28,19 +28,26 @@
                 <div class="ui-g-12 ui-g-nopad">
                     <div class="ui-g">
                         <div class="ui-g-12 ui-md-6">
-                            <p:chart type="line" model="#{chartView.animatedModel1}"/>
+                            <p:chart type="pie" model="#{chartView.pieModel1}"/>
                         </div>
+                        
                         <div class="ui-g-12 ui-md-6">
+                            <p:chart type="pie" model="#{chartView.pieModel2}"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-12">
                            <p:chart type="bar" model="#{chartView.animatedModel2}"/>
                         </div>
+                        
+                        <!--div class="ui-g-12 ui-md-11">
+                         <p:chart type="line" model="#{chartView.animatedModel1}"/>
+                        </div-->
+                        
                     </div>
                 </div>            
                 
             </div>
             <div class="footer">
-                <p> Farmacias N</p>
-                <p> Contacto: Jose Andre Coloj</p>
-                <p> Correo: jose.coloj@gmail.com</p>                    
+                <p> © 2019 Copyright: jose.coloj@gmail.com</p>                     
             </div>
         </div>    
        

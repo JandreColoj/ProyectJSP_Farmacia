@@ -10,11 +10,6 @@
     </h:head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <h:body class="fodo">
-        
-        <p:breadCrumb>
-            <p:menuitem value="Categories" url="#" />
-            <p:menuitem value="Salir" url="#" />
-        </p:breadCrumb>
 
         <div class="ui-g">
             <div class="ui-g-12 ui-md-2 fondo_menu" >                
@@ -27,11 +22,11 @@
                 <h:form id="form">
                                          
                     <div class="">
-                        <h4>FACTURACION</h4>
+                        <!--h4>FACTURACION</h4-->
                         <!--p:commandButton value="Actualizar lista"  actionListener="#{ProductoBean.listar()}" update="table_producto" /-->                     
                     </div>
                         
-                    <div style="width: 90%; text-align: center; margin:auto"> 
+                    <div style="width: 90%; text-align: center; margin:aut; padding: 40px 0px 0px 20px" > 
                         
                         <p:dataTable id="table_ventas" paginator="true" rows="15" value="#{ventasBean.lista}" var="venta" editable="true">
                             
@@ -53,19 +48,55 @@
                             <p:column headerText="TOTAL">
                                 <p:outputLabel value="#{venta.total}" />
                             </p:column>  
-                        
+                            
+                             <p:column headerText="OPCIONES">
+                                 <p:commandLink value="Detalle" oncomplete="PF('dlg3').show();" actionListener="#{ventasBean.detalleFactura(venta.factura)}" update="detalle_factura">
+                                </p:commandLink>
+                            </p:column> 
+                            
                         </p:dataTable>
                         
                     </div>
                                               
-                </h:form>      
+                </h:form>   
+                
+                
+                <p:dialog header="Detalle de la factura" widgetVar="dlg3" showEffect="explode" hideEffect="explode" height="300" width="50%">
+
+                    <p:dataTable id="detalle_factura" paginator="true" rows="15" value="#{ventasBean.detalle}" var="det" editable="true">
+                            
+                            <p:column headerText="CODIGO">
+                                <p:outputLabel value="#{det.idProd}" />
+                            </p:column>  
+                            <p:column headerText="PRODUCTO">
+                                <p:outputLabel value="#{det.nombre}" />
+                            </p:column>  
+
+                            <p:column headerText="DESCRIPCION">
+                                <p:outputLabel value="#{det.descripcion}" />
+                            </p:column>  
+
+                            <p:column headerText="CANTIDAD">
+                                <p:outputLabel value="#{det.cantidad}" />
+                            </p:column>  
+
+                            <p:column headerText="PRECIO">
+                                <p:outputLabel value="#{det.costo}" />
+                            </p:column>  
+                            
+                            <p:column headerText="TOTAL">
+                                <p:outputLabel value="#{det.costo*det.cantidad}" />
+                            </p:column>  
+                           
+                            
+                    </p:dataTable>
+                
+                </p:dialog>
 
                 
             </div>
             <div class="footer">
-                <p> Farmacias N</p>
-                <p> Contacto: Jose Andre Coloj</p>
-                <p> Correo: jose.coloj@gmail.com</p>                    
+                <p> © 2019 Copyright: jose.coloj@gmail.com</p>                       
             </div>
         </div>    
        
