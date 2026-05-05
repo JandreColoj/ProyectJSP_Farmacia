@@ -47,17 +47,24 @@ erDiagram
     string[]  allConversationTags  "nombres de tags del chatbot"
   }
 
+  IntegrationConfig {
+    ObjectId  _id
+    string    companyId
+    object    aiTagConfig          "{ items: [{ tag: string }] } | null"
+  }
+
   Contact {
     ObjectId  _id
     string    companyId
     string[]  conversationTag  "union de ambos legacy arrays"
   }
 
-  Conversation    ||--o{  GeneralTag         : "generalTags[]  (flag ON)"
-  Conversation    ||--||  ConversationContext : "conversationContext  (legacy)"
-  GeneralTag      }o--||  OperatorTag        : "ref por operatorTagId"
-  ChatbotConfig   }o--o{  OperatorTag        : "sync find-or-create"
-  Conversation    }o--||  Contact            : "denormaliza tags a"
+  Conversation       ||--o{  GeneralTag          : "generalTags[]  (flag ON)"
+  Conversation       ||--||  ConversationContext  : "conversationContext  (legacy)"
+  GeneralTag         }o--||  OperatorTag          : "ref por operatorTagId"
+  ChatbotConfig      }o--o{  OperatorTag          : "sync find-or-create · source:chatbot"
+  IntegrationConfig  }o--o{  OperatorTag          : "sync find-or-create · source:ai"
+  Conversation       }o--||  Contact              : "denormaliza tags a"
 ```
 
 ---
