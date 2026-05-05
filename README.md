@@ -36,11 +36,6 @@ erDiagram
     string  source         "human | chatbot | ai"
   }
 
-  ConversationContext {
-    string[]  conversation_tag_manual  "tags humanos · uppercase"
-    string[]  conversation_tag         "tags chatbot/IA · lowercase"
-  }
-
   ChatbotConfig {
     string    website_id
     string    company_id
@@ -59,9 +54,8 @@ erDiagram
     string[]  conversationTag  "union de ambos legacy arrays"
   }
 
-  Conversation       ||--o{  GeneralTag          : "generalTags[]  (flag ON)"
-  Conversation       ||--||  ConversationContext  : "conversationContext  (legacy)"
-  GeneralTag         }o--||  OperatorTag          : "ref por operatorTagId"
+  Conversation       ||--o{  GeneralTag    : "generalTags[]  (flag ON)"
+  GeneralTag         }o--||  OperatorTag   : "ref por operatorTagId"
   ChatbotConfig      }o--o{  OperatorTag          : "sync find-or-create · source:chatbot"
   IntegrationConfig  }o--o{  OperatorTag          : "sync find-or-create · source:ai"
   Conversation       }o--||  Contact              : "denormaliza tags a"
@@ -149,9 +143,6 @@ flowchart LR
 
 ---
 
-## Invariantes de retrocompatibilidad
+## Notas
 
-- Los campos legacy (`conversation_tag_manual`, `conversation_tag`) **siempre se escriben** — flag ON/OFF. Filtros, exports y consumers existentes no requieren migración.
-- `operatorTags[]` — campo histórico en `Conversation`, ya no se escribe, se preserva.
-- `Contact.conversationTag` — siempre es la unión de los dos arrays legacy.
 - Ausencia de `source` en un `GeneralTag` existente → se interpreta como `human`.
